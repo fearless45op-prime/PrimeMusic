@@ -1,8 +1,8 @@
 <div align="center">
 
-<img width="100%" src="https://capsule-render.vercel.app/api?type=venom&color=0:39ff14,45:a855f7,100:22d3ee&height=230&section=header&text=VENOM%20%E2%9C%98%20MUSIC&fontSize=56&fontColor=ffffff&fontAlignY=34&desc=The%20Deadliest%20Telegram%20Music%20Bot&descAlignY=55&descSize=18&animation=twinkling" alt="VENOM MUSIC animated banner"/>
+<img width="100%" src="https://capsule-render.vercel.app/api?type=venom&color=0:39ff14,45:a855f7,100:22d3ee&height=230&section=header&text=FEARLESS%20%E2%9C%98%20MUSIC&fontSize=56&fontColor=ffffff&fontAlignY=34&desc=The%20Deadliest%20Telegram%20Music%20Bot&descAlignY=55&descSize=18&animation=twinkling" alt="VENOM MUSIC animated banner"/>
 
-<img src="https://te.legra.ph/file/7d9c0fec898bbee09ba95.jpg" width="320" height="auto" alt="Venom Music">
+<img src="https://te.legra.ph/file/7d9c0fec898bbee09ba95.jpg" width="320" height="auto" alt="Fearless X Music">
 
 <br>
 
@@ -25,8 +25,8 @@
 <br>
 
 <a href="https://t.me/venom_chatting"><img src="https://img.shields.io/badge/%F0%9F%91%A5%20Support%20Group-0ea5e9?style=for-the-badge&logo=telegram&logoColor=white"></a>
-<a href="https://t.me/TomatoFist"><img src="https://img.shields.io/badge/%F0%9F%93%A2%20Updates%20Channel-22c55e?style=for-the-badge&logo=telegram&logoColor=white"></a>
-<a href="https://t.me/ll_dark_poison_ll"><img src="https://img.shields.io/badge/%F0%9F%91%A8%F0%9F%92%BB%20Developer-b91c1c?style=for-the-badge&logo=telegram&logoColor=white"></a>
+<a href="https://t.me/SPARK_X_NETWORK"><img src="https://img.shields.io/badge/%F0%9F%93%A2%20Updates%20Channel-22c55e?style=for-the-badge&logo=telegram&logoColor=white"></a>
+<a href="https://t.me/Prime_Fearless_45"><img src="https://img.shields.io/badge/%F0%9F%91%A8%F0%9F%92%BB%20Developer-b91c1c?style=for-the-badge&logo=telegram&logoColor=white"></a>
 
 <br>
 <br>
@@ -649,7 +649,7 @@ systemd: `sudo systemctl restart venommusic` · tmux: detach and rerun `bash sta
 ## 🗂️ Project Structure
 
 ```text
-VenomMusic/
+FearlessXMusic/
 ├── app.py                  # Health-check web server (Render/Heroku)
 ├── start                   # Launcher script
 ├── requirements.txt        # Python dependencies
