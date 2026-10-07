@@ -61,7 +61,13 @@ def _remember_permalink(vidid, video, url):
 
 
 async def _start_lyrics(chat_id, title, duration, playback_started=None):
-    """Show synced lyrics for the track that just started, posted by the assistant."""
+    """Show synced lyrics for the track that just started, posted by the assistant.
+
+    Every path in stream() that joins the call calls this. Three of them did not,
+    in three separate commits, each reported as "lyrics stopped working" — because
+    a path that forgets to call this is indistinguishable, from the outside and
+    from the log, from a lyrics endpoint that has broken.
+    """
     try:
         if not await get_vc_lyrics(chat_id):
             return
@@ -316,6 +322,13 @@ async def stream(
                 await Ayush.join_call(
                     chat_id, original_chat_id, stream_link, video=status, image=thumbnail
                 )
+                # The playlist path joins the call but never told the lyrics
+                # display anything, so a track started from a playlist produced no
+                # lyrics at all — the same silence a broken endpoint produces, with
+                # nothing in the log to tell the two apart.
+                asyncio.create_task(
+                    _start_lyrics(chat_id, title, duration_sec)
+                )
                 slog.info("[%s] join_call done for vidid=%s", _STREAM_LOG, vidid)
                 await put_queue(
                     chat_id,
@@ -547,6 +560,9 @@ async def stream(
                 if not forceplay:
                     db[chat_id] = []
                 await Ayush.join_call(chat_id, original_chat_id, file_path, video=None)
+                asyncio.create_task(
+                    _start_lyrics(chat_id, title, result["duration_sec"])
+                )
                 await put_queue(
                     chat_id,
                     original_chat_id,
@@ -608,6 +624,9 @@ async def stream(
                         db[chat_id] = []
                     await Ayush.join_call(
                         chat_id, original_chat_id, file_path, video=None
+                    )
+                    asyncio.create_task(
+                        _start_lyrics(chat_id, title, duration_min)
                     )
                     await put_queue(
                         chat_id,
@@ -676,6 +695,7 @@ async def stream(
             if not forceplay:
                 db[chat_id] = []
             await Ayush.join_call(chat_id, original_chat_id, file_path, video=None)
+            asyncio.create_task(_start_lyrics(chat_id, title, duration_min))
             await put_queue(
                 chat_id,
                 original_chat_id,
@@ -726,6 +746,7 @@ async def stream(
             if not forceplay:
                 db[chat_id] = []
             await Ayush.join_call(chat_id, original_chat_id, file_path, video=status)
+            asyncio.create_task(_start_lyrics(chat_id, title, duration_min))
             await put_queue(
                 chat_id,
                 original_chat_id,
@@ -788,6 +809,7 @@ async def stream(
                 video=status,
                 image=thumbnail if thumbnail else None,
             )
+            asyncio.create_task(_start_lyrics(chat_id, title, duration_min))
             await put_queue(
                 chat_id,
                 original_chat_id,
@@ -843,6 +865,7 @@ async def stream(
                 link,
                 video=True if video else None,
             )
+            asyncio.create_task(_start_lyrics(chat_id, title, duration_min))
             await put_queue_index(
                 chat_id,
                 original_chat_id,

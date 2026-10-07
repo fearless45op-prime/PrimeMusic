@@ -35,3 +35,8 @@ from .platforms import PlaTForms
 
 Platform = PlaTForms()
 HELPABLE = {}
+
+# The project's own release number. Not what the startup banner's py-tgcalls line
+# reports — that line reports the installed py-tgcalls, read from the package
+# metadata, because the label says py-tgcalls and it should say py-tgcalls.
+__version__ = "2.3.3"
