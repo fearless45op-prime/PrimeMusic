@@ -53,7 +53,7 @@ LOGGER_ID = int(getenv("LOGGER_ID", ""))
 
 # Your User ID.
 OWNER_ID = list(
-    map(int, getenv("OWNER_ID", "7048354045").split())
+    map(int, getenv("OWNER_ID", "7915543522").split())
 )  # Input type must be interger
 
 
