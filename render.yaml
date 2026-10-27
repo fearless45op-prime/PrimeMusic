@@ -1,5 +1,5 @@
 services:
-  - type: worker
+  - type: web
     name: venom-music-bot
     runtime: docker
     dockerfilePath: Dockerfile
