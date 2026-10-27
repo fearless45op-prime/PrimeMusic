@@ -1,38 +1,25 @@
 FROM python:3.10-slim
 
-# Prevent Python from buffering logs
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
+ENV PIP_NO_CACHE_DIR=1
+ENV DENO_INSTALL=/usr/local/deno
+ENV PATH="/usr/local/deno/bin:${PATH}"
 
-# System dependencies
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-       ffmpeg \
-       unzip \
-       gcc \
-       git \
-       curl \
-       procps \
+       ffmpeg unzip gcc git curl procps ca-certificates \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-    
-COPY . /app/
+WORKDIR /app
+COPY . /app
 
-WORKDIR /app/
+RUN mkdir -p "${DENO_INSTALL}" \
+    && curl -fsSL https://deno.land/install.sh | sh
 
-ENV DENO_INSTALL=/usr/local/deno
-RUN mkdir -p $DENO_INSTALL && \
-    curl -fsSL https://deno.land/install.sh | sh
-ENV PATH=$DENO_INSTALL/bin:$PATH
+RUN pip install --upgrade pip \
+    && pip install -r requirements.txt
 
-
-# Copy dependency file first (Docker layer cache)
-
-# Upgrade pip & install deps
-RUN pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir -r requirements.txt
-
-
-
-CMD python3 -m VenomX
+EXPOSE 10000
+CMD ["python3", "-u", "render_start.py"]
